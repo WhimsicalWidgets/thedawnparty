@@ -1,0 +1,69 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Dawn Party | Norwegian Dawn Cruise Community</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="importmap">
+    {
+        "imports": {
+            "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+        }
+    }
+    </script>
+    <script type="module" src="app.js"></script>
+</head>
+<body>
+    <header>
+        <div class="wave-animation"></div>
+        <h1>The Dawn Party</h1>
+        <p class="tagline">Norwegian Dawn Rome Departure - May 3rd, 2024</p>
+        <p class="sponsor">Sponsored by Kim Cattrall, Godmother of the Norwegian Dawn</p>
+    </header>
+
+    <main id="app">
+        <section class="connect">
+            <h2>Connect with Fellow Cruisers</h2>
+            <div class="buttons">
+                <a href="https://join.slack.com" class="btn slack-btn">Join our Slack Channel</a>
+                <button @click="showProfileModal = true" class="btn profile-btn">Create Your Profile</button>
+            </div>
+        </section>
+
+        <section class="message-board">
+            <h2>Message Board</h2>
+            <div class="messages">
+                <div v-for="message in messages" class="message">
+                    <div class="message-header">
+                        <strong>{{ message.author }}</strong>
+                        <span>{{ message.date }}</span>
+                    </div>
+                    <p>{{ message.content }}</p>
+                </div>
+            </div>
+            <div class="post-message">
+                <textarea v-model="newMessage" placeholder="Share your thoughts..."></textarea>
+                <button @click="postMessage" class="btn">Post</button>
+            </div>
+        </section>
+
+        <!-- Profile Modal -->
+        <div v-if="showProfileModal" class="modal">
+            <div class="modal-content">
+                <h2>Create Your Profile</h2>
+                <form @submit.prevent="saveProfile">
+                    <input v-model="profile.name" placeholder="Name" required>
+                    <input v-model="profile.cabin" placeholder="Cabin Number">
+                    <textarea v-model="profile.bio" placeholder="Tell us about yourself"></textarea>
+                    <button type="submit" class="btn">Save Profile</button>
+                    <button @click="showProfileModal = false" class="btn secondary">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>See you on board! 🚢</p>
+    </footer>
+</body>
+</html>
